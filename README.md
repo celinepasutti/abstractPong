@@ -1,2 +1,2 @@
 # abstractPong
-qwertyuiopasdfghjklzxcvbnm
+write code and variables once. Then, inherit.
