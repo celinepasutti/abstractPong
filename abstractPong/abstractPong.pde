@@ -5,7 +5,7 @@ void setup() {
   size(400, 600);
   //fullScreen();
   noStroke();
-  println("intitiated.");
+  println("intitiated:");
   display();
 }
 

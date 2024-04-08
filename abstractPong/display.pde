@@ -13,5 +13,5 @@ void portrait() {
   fill(red);
   rect (0, 0, width, height);
   fill(0);
-  println("stop");
+  println("portrait");
 }
