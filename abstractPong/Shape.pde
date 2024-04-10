@@ -12,16 +12,14 @@ abstract class Shape {
     defaultCol = 0; //nightModeCol();
   }
 
-  
+
 
   //methods
-  void draw() {
-    
-  }
-  
+  abstract void draw();
+
+
   /* color nightModeCol() { ---------- potential nightMode...
-    color nm = 0;
-    return nm;
-  }*/
- 
+   color nm = 0;
+   return nm;
+   }*/
 }

@@ -1,12 +1,11 @@
-int appWidth, appHeight;
+float appWidth, appHeight;
 boolean correctlyOriented;
-color red = #C11F1F;
 
 void display() {
-  println(width, height, displayWidth, displayHeight);
   appWidth = width;
   appHeight = height;
   correctlyOriented = (appWidth >= appHeight) ? true : false;
+  println("orientation :", appWidth, "by", appHeight, "-- correctly oriented (t/f) :", correctlyOriented);
 }
 
 void portrait() {

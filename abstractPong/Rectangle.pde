@@ -1,6 +1,6 @@
-abstract class Circle extends Shape {
+abstract class Rectangle extends Shape {
   // class vars
-  Circle(color col, float x, float y, float w, float h) {
+  Rectangle(color col, float x, float y, float w, float h) {
     super(col, x, y, w, h);
   }
 
