@@ -2,7 +2,7 @@ class Ball extends Circle {
   //class vars
   float xStart, yStart, xSpeed, ySpeed, xSpeedChange, ySpeedChange;
   float tablex, tabley, tablew, tableh;
-  float paddleX, paddleY, paddleW, paddleH;
+  float paddlex, paddley, paddlew, paddleh;
   Boolean rSide;
 
   Ball (color col, float x, float y, float w, float h) {
@@ -13,7 +13,12 @@ class Ball extends Circle {
     ySpeed = 3*ySpeedChange();
     xSpeedChange = 1.0; //break bounce physics - change speed
     ySpeedChange = 1.0;
+    rSide = false;
   }
+  
+  /*Ball (color colParameter, float xParameter) {
+    super(col, x, y, w, h);
+  }*/
 
   //methods
   float xSpeedChange() {
@@ -38,6 +43,7 @@ class Ball extends Circle {
     ellipse(x, y, w, h);
     fill(defaultCol);
 
+
     move();
   }
 
@@ -50,8 +56,8 @@ class Ball extends Circle {
     bounce();
     x += xSpeed * xSpeedChange;
     y += ySpeed * ySpeedChange;
-
-    if (x <= (tablew*1/2)) {
+    
+    if (x < (tablew*1/2)) {
       rSide = true;
     } else {
       rSide = false;
@@ -59,11 +65,30 @@ class Ball extends Circle {
   }
 
   void bounce() {
-    if (y < tabley + (w/2) || y > (tabley + tableh - (w/2))) {
-      ySpeed *= -1;
+    if (this.rSide == true) {
+        if (this.x < (paddlex + paddlew + (w/2)) && this.y > paddley && this.y < (paddley + paddleh)) {
+          if (this.x > paddlex - w) {
+            this.x = (paddlex + paddlew + (w/2));
+            this.xSpeed *= -1;
+          } else {
+            this.xSpeed *= -1;
+          }
+        }
+      } else {
+        if (this.x > (paddlex - (w/2)) && this.y > paddley && this.y < (paddley + paddleh)) {
+          if (this.x < paddlex + w) {
+            this.x = (paddlex - (w/2));
+            this.xSpeed *= -1;
+          } else {
+            this.xSpeed *= -1;
+          }
+        }
+      }
+    if (this.y < tabley + (w/2) || this.y > (tabley + tableh - (w/2))) {
+      this.ySpeed *= -1;
     }
-    if (x < tablex + (w/2) || x > tablew - (w/2)) {
-      xSpeed *=  -1;
+    if (this.x < tablex + (w/2) || this.x > tablew - (w/2)) {
+      this.xSpeed *=  -1;
     }
   }
 
@@ -72,6 +97,25 @@ class Ball extends Circle {
     tabley = tableyParameter;
     tablew = tablewParameter;
     tableh = tablehParameter;
+  }
+  
+  void paddleUpdate(float rpaddlexParameter, float lpaddlexParameter, float rpaddleyParameter, float lpaddleyParameter, float rpaddlewParameter, float lpaddlewParameter, float rpaddlehParameter, float lpaddlehParameter) {
+    if (rSide == true) {
+      paddlex = rpaddlexParameter;
+      paddley = rpaddleyParameter;
+      paddlew = rpaddlewParameter;
+      paddleh = rpaddlehParameter;
+    } else {
+      paddlex = lpaddlexParameter;
+      paddley = lpaddleyParameter;
+      paddlew = lpaddlewParameter;
+      paddleh = lpaddlehParameter;
+    }
+    
+    /*paddlex = (x <= (tablew * 1/2)) ? rpaddlexParameter: lpaddlexParameter;
+    paddley = (x <= (tablew * 1/2)) ? rpaddleyParameter: lpaddleyParameter;
+    paddlew = (x <= (tablew * 1/2)) ? rpaddlewParameter: lpaddlewParameter;
+    paddleh = (x <= (tablew * 1/2)) ? rpaddlehParameter: lpaddlehParameter;*/
   }
 }
 
