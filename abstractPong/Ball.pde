@@ -15,10 +15,6 @@ class Ball extends Circle {
     ySpeedChange = 1.0;
     rSide = false;
   }
-  
-  /*Ball (color colParameter, float xParameter) {
-    super(col, x, y, w, h);
-  }*/
 
   //methods
   float xSpeedChange() {
@@ -38,7 +34,6 @@ class Ball extends Circle {
   }
 
   void draw() {
-    //upper branch Circle()
     fill (col);
     ellipse(x, y, w, h);
     fill(defaultCol);
@@ -47,16 +42,11 @@ class Ball extends Circle {
     move();
   }
 
-  /* color nightModeCol() { ---------- potential nightMode...
-   color nm = 0;
-   return nm;
-   }*/
-
   void move() {
     bounce();
     x += xSpeed * xSpeedChange;
     y += ySpeed * ySpeedChange;
-    
+
     if (x < (tablew*1/2)) {
       rSide = true;
     } else {
@@ -66,24 +56,24 @@ class Ball extends Circle {
 
   void bounce() {
     if (this.rSide == true) {
-        if (this.x < (paddlex + paddlew + (w/2)) && this.y > paddley && this.y < (paddley + paddleh)) {
-          if (this.x > paddlex - w) {
-            this.x = (paddlex + paddlew + (w/2));
-            this.xSpeed *= -1;
-          } else {
-            this.xSpeed *= -1;
-          }
-        }
-      } else {
-        if (this.x > (paddlex - (w/2)) && this.y > paddley && this.y < (paddley + paddleh)) {
-          if (this.x < paddlex + w) {
-            this.x = (paddlex - (w/2));
-            this.xSpeed *= -1;
-          } else {
-            this.xSpeed *= -1;
-          }
+      if (this.x < (paddlex + paddlew + (w/2)) && this.y > paddley && this.y < (paddley + paddleh)) {
+        if (this.x > paddlex - w) {
+          this.x = (paddlex + paddlew + (w/2));
+          this.xSpeed *= -1;
+        } else {
+          this.xSpeed *= -1;
         }
       }
+    } else {
+      if (this.x > (paddlex - (w/2)) && this.y > paddley && this.y < (paddley + paddleh)) {
+        if (this.x < paddlex + w) {
+          this.x = (paddlex - (w/2));
+          this.xSpeed *= -1;
+        } else {
+          this.xSpeed *= -1;
+        }
+      }
+    }
     if (this.y < tabley + (w/2) || this.y > (tabley + tableh - (w/2))) {
       this.ySpeed *= -1;
     }
@@ -98,7 +88,7 @@ class Ball extends Circle {
     tablew = tablewParameter;
     tableh = tablehParameter;
   }
-  
+
   void paddleUpdate(float rpaddlexParameter, float lpaddlexParameter, float rpaddleyParameter, float lpaddleyParameter, float rpaddlewParameter, float lpaddlewParameter, float rpaddlehParameter, float lpaddlehParameter) {
     if (rSide == true) {
       paddlex = rpaddlexParameter;
@@ -111,13 +101,16 @@ class Ball extends Circle {
       paddlew = lpaddlewParameter;
       paddleh = lpaddlehParameter;
     }
-    
-    /*paddlex = (x <= (tablew * 1/2)) ? rpaddlexParameter: lpaddlexParameter;
-    paddley = (x <= (tablew * 1/2)) ? rpaddleyParameter: lpaddleyParameter;
-    paddlew = (x <= (tablew * 1/2)) ? rpaddlewParameter: lpaddlewParameter;
-    paddleh = (x <= (tablew * 1/2)) ? rpaddlehParameter: lpaddlehParameter;*/
+  }
+
+  void netExplosion(float xParameter, float yParameter, float gravityParameter) {
+    for (int i = 0; i < fireworks.length; i++) {
+      fireworks[i] = new Fireworks(0, xParameter, yParameter, 0, 0, gravityParameter);
+    }
+    this.x = xStart;
+    this.y = yStart;
   }
 }
 
-//RESP:::
-//NETEXPLOSION
+  //RESP:::
+  //NETEXPLOSION

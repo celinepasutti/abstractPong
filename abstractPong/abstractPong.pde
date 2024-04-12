@@ -1,6 +1,7 @@
 //global vars
 PongTable myTable;
 Paddle rPaddle, lPaddle;
+Fireworks[] fireworks = new Fireworks[25];
 
 Ball myBall;
 
@@ -23,6 +24,10 @@ void setup() {
 
     rPaddle.tableUpdate(myTable.x, myTable.y, myTable.w, myTable.h);
     lPaddle.tableUpdate(myTable.x, myTable.y, myTable.w, myTable.h);
+
+    for (int i = 0; i < fireworks.length; i++) {
+      fireworks[i] = new Fireworks(0, appWidth*-1, appHeight*-1, appHeight*1/30, appWidth*1/30, 0.5);
+    }
   }
 }
 
@@ -33,12 +38,29 @@ void draw() {
   } else {
 
     myTable.draw();
+    for (int i = 0; i < fireworks.length; i++) {
+      fireworks[i].draw();
+    }
+
     myBall.draw();
 
     rPaddle.draw();
     lPaddle.draw();
-    
+
     myBall.paddleUpdate(rPaddle.x, lPaddle.x, rPaddle.y, lPaddle.y, rPaddle.w, lPaddle.w, rPaddle.h, lPaddle.h);
+
+
+
+  //goal
+    if (myBall.x < myBall.w) {
+      myBall.netExplosion(myBall.x, myBall.y, 0.5);
+    }
+    if (myBall.x > (appWidth - myBall.w)) {
+      myBall.netExplosion(myBall.x, myBall.y, 0.5);
+    }
+    for (int i = 0; i < fireworks.length; i++) {
+      fireworks[i].tableUpdate(myTable.x, myTable.y, myTable.w, myTable.h);
+    }
   }
 }
 
@@ -55,18 +77,18 @@ void mousePressed() {
 
 void keyPressed() {
   if (correctlyOriented == true) {
-  rPaddle.keyPressedWASD();
-  lPaddle.keyPressedARROW();
+    rPaddle.keyPressedWASD();
+    lPaddle.keyPressedARROW();
   }
-  
+
   if (key == ESC) {
-   println("terminated");
+    println("terminated");
   }
 }
 
 void keyReleased() {
   if (correctlyOriented == true) {
-  rPaddle.keyReleasedWASD();
-  lPaddle.keyReleasedARROW();
+    rPaddle.keyReleasedWASD();
+    lPaddle.keyReleasedARROW();
   }
 }
