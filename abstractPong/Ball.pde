@@ -3,7 +3,8 @@ class Ball extends Circle {
   float xStart, yStart, xSpeed, ySpeed, xSpeedChange, ySpeedChange;
   float tablex, tabley, tablew, tableh;
   float paddlex, paddley, paddlew, paddleh;
-  Boolean rSide;
+  Boolean rSide = false;
+  Boolean paused = false;
 
   Ball (color col, float x, float y, float w, float h) {
     super(col, x, y, w, h);
@@ -13,7 +14,6 @@ class Ball extends Circle {
     ySpeed = 3*ySpeedChange();
     xSpeedChange = 1.0; //break bounce physics - change speed
     ySpeedChange = 1.0;
-    rSide = false;
   }
 
   //methods
@@ -37,8 +37,8 @@ class Ball extends Circle {
     fill (col);
     ellipse(x, y, w, h);
     fill(defaultCol);
-
-
+    
+    paused();
     move();
   }
 
@@ -82,6 +82,16 @@ class Ball extends Circle {
     }
   }
 
+  void paused() {
+    if (paused == true) {
+      this.x = xStart;
+      this.y = yStart;
+      fill(black);
+      rect(0, 0, appWidth, appHeight);
+      fill(defaultCol);
+    }
+  }
+
   void tableUpdate(float tablexParameter, float tableyParameter, float tablewParameter, float tablehParameter) {
     tablex = tablexParameter;
     tabley = tableyParameter;
@@ -107,8 +117,17 @@ class Ball extends Circle {
     for (int i = 0; i < fireworks.length; i++) {
       fireworks[i] = new Fireworks(0, xParameter, yParameter, 0, 0, gravityParameter);
     }
+    paused = true;
     this.x = xStart;
     this.y = yStart;
+    this.xSpeed *= xSpeedChange();
+    this.ySpeed *= ySpeedChange();
+  }
+
+  void endPause() {
+    if (paused == true && key == ' ') {
+      paused = false;
+    }
   }
 }
 

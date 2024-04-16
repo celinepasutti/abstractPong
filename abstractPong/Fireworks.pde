@@ -4,6 +4,7 @@ class Fireworks extends Circle {
   float xSpeed, ySpeed;
   float xSpeedChange = 1, ySpeedChange = 1;
   float tablex, tabley, tablew, tableh, ballx, bally;
+  Boolean paused = false;
 
   float xSpeedChange() {
     float xSpeedChange = int (random(-2, 2));
@@ -65,5 +66,13 @@ class Fireworks extends Circle {
     tabley = tableyParameter;
     tablew = tablewParameter;
     tableh = tablehParameter;
+  }
+  
+  void pauseUpdate(Boolean pauseParameter) {
+   paused = pauseParameter;
+   if (paused == false) {
+     this.x = appWidth*-1;
+     this.y = appHeight*-1;
+   }
   }
 }

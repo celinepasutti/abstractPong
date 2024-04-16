@@ -53,23 +53,22 @@ void draw() {
   } else {
     myTable.draw();
 
-    lScore.draw();
-    rScore.draw();
-
     quit.draw();
     restart.draw();
     oneP.draw();
     twoP.draw();
     nullP.draw();
+    
+    rPaddle.draw();
+    lPaddle.draw();
 
+    myBall.draw();
     for (int i = 0; i < fireworks.length; i++) {
       fireworks[i].draw();
     }
-
-    myBall.draw();
-
-    rPaddle.draw();
-    lPaddle.draw();
+    
+    lScore.draw();
+    rScore.draw();
 
     myBall.paddleUpdate(rPaddle.x, lPaddle.x, rPaddle.y, lPaddle.y, rPaddle.w, lPaddle.w, rPaddle.h, lPaddle.h);
 
@@ -84,8 +83,10 @@ void draw() {
       rScore.inNet = true;
       myBall.netExplosion(myBall.x, myBall.y, 0.5);
     }
+    
     for (int i = 0; i < fireworks.length; i++) {
       fireworks[i].tableUpdate(myTable.x, myTable.y, myTable.w, myTable.h);
+      fireworks[i].pauseUpdate(myBall.paused);
     }
   }
 }
@@ -109,6 +110,7 @@ void keyPressed() {
   if (correctlyOriented == true) {
     rPaddle.keyPressedWASD();
     lPaddle.keyPressedARROW();
+    myBall.endPause();
   }
 
   if (key == ESC) {
