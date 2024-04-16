@@ -23,7 +23,7 @@ class Fireworks extends Circle {
 
   Fireworks(color col, float x, float y, float w, float h, float gravityParameter) {
     super(col, x, y, w, h);
-    this.w = random(width*1/70);
+    this.w = random(width*1/90);
     this.h = this.w;
     this.col = color (int(random(255)), int(random(255)), int(random(255)));
     gravity = gravityParameter;
@@ -54,6 +54,9 @@ class Fireworks extends Circle {
     }
     if (this.x < tablex + (this.w*1/2) || this.x > tablew - (this.w*1/2)) {
       xSpeed *=  -1;
+    }
+    if (this.y > (tabley + tableh + this.w)) {
+     this.y = appHeight*-1; 
     }
   }
 
