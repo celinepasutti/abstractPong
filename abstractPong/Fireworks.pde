@@ -36,7 +36,7 @@ class Fireworks extends Circle {
     fill (col);
     ellipse(x, y, w, h);
     fill(defaultCol);
-    
+
     move();
   }
 
@@ -56,7 +56,7 @@ class Fireworks extends Circle {
       xSpeed *=  -1;
     }
     if (this.y > (tabley + tableh + this.w)) {
-     this.y = appHeight*-1; 
+      this.y = appHeight*-1;
     }
   }
 
@@ -66,5 +66,4 @@ class Fireworks extends Circle {
     tablew = tablewParameter;
     tableh = tablehParameter;
   }
-  
 }
