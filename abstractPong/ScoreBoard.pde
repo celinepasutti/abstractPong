@@ -13,8 +13,7 @@ class ScoreBoard extends Rectangle {
 
   //methods
   void draw() {
-    fill (col);
-    rect(x, y, w, h);
+    rectangle();
     fill(white);
     createText(this.x, this.y, this.w, this.h);
     fill(defaultCol);

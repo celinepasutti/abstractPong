@@ -3,7 +3,7 @@ PongTable myTable;
 Button quit, restart, oneP, twoP, nullP;
 ScoreBoard lScore, rScore;
 Paddle rPaddle, lPaddle;
-Fireworks[] fireworks = new Fireworks[25];
+Fireworks fireworks;
 
 Ball myBall;
 
@@ -40,9 +40,8 @@ void setup() {
     rPaddle.tableUpdate(myTable.x, myTable.y, myTable.w, myTable.h);
     lPaddle.tableUpdate(myTable.x, myTable.y, myTable.w, myTable.h);
 
-    for (int i = 0; i < fireworks.length; i++) {
-      fireworks[i] = new Fireworks(0, appWidth*-1, appHeight*-1, appHeight*1/30, appWidth*1/30, 0.5);
-    }
+
+    fireworks = new Fireworks(0, appWidth*-1, appHeight*-1, appHeight*1/30, appWidth*1/30, 0.5);
   }
 }
 
@@ -58,15 +57,15 @@ void draw() {
     oneP.draw();
     twoP.draw();
     nullP.draw();
-    
+
     rPaddle.draw();
     lPaddle.draw();
 
-    myBall.draw();
-    for (int i = 0; i < fireworks.length; i++) {
-      fireworks[i].draw();
-    }
     
+    
+    myBall.draw();
+    fireworks.draw();
+
     lScore.draw();
     rScore.draw();
 
@@ -83,11 +82,7 @@ void draw() {
       rScore.inNet = true;
       myBall.netExplosion(myBall.x, myBall.y, 0.5);
     }
-    
-    for (int i = 0; i < fireworks.length; i++) {
-      fireworks[i].tableUpdate(myTable.x, myTable.y, myTable.w, myTable.h);
-      fireworks[i].pauseUpdate(myBall.paused);
-    }
+    fireworks.tableUpdate(myTable.x, myTable.y, myTable.w, myTable.h);
   }
 }
 

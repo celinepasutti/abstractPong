@@ -1,5 +1,6 @@
 class Ball extends Circle {
   //class vars
+  PFont font = createFont("MS UI Gothic", 55);
   float xStart, yStart, xSpeed, ySpeed, xSpeedChange, ySpeedChange;
   float tablex, tabley, tablew, tableh;
   float paddlex, paddley, paddlew, paddleh;
@@ -12,8 +13,8 @@ class Ball extends Circle {
     yStart = y;
     xSpeed = 3*xSpeedChange();
     ySpeed = 3*ySpeedChange();
-    xSpeedChange = 1.0; //break bounce physics - change speed
-    ySpeedChange = 1.0;
+    xSpeedChange = 1.2; //break bounce physics - change speed
+    ySpeedChange = 1.2;
   }
 
   //methods
@@ -34,10 +35,8 @@ class Ball extends Circle {
   }
 
   void draw() {
-    fill (col);
-    ellipse(x, y, w, h);
-    fill(defaultCol);
-    
+    ball();
+
     paused();
     move();
   }
@@ -79,7 +78,7 @@ class Ball extends Circle {
     }
     if (this.x < tablex + (w/2) || this.x > tablew - (w/2)) {
       this.xSpeed *=  -1;
-    }
+    } 
   }
 
   void paused() {
@@ -88,6 +87,9 @@ class Ball extends Circle {
       this.y = yStart;
       fill(black);
       rect(0, 0, appWidth, appHeight);
+      fill(defaultCol);
+      fill(white);
+      createText(0, 0, appWidth, appHeight);
       fill(defaultCol);
     }
   }
@@ -114,9 +116,8 @@ class Ball extends Circle {
   }
 
   void netExplosion(float xParameter, float yParameter, float gravityParameter) {
-    for (int i = 0; i < fireworks.length; i++) {
-      fireworks[i] = new Fireworks(0, xParameter, yParameter, 0, 0, gravityParameter);
-    }
+    fireworks = new Fireworks(0, xParameter, yParameter, 0, 0, gravityParameter);
+    
     paused = true;
     this.x = xStart;
     this.y = yStart;
@@ -127,7 +128,15 @@ class Ball extends Circle {
   void endPause() {
     if (paused == true && key == ' ') {
       paused = false;
+      fireworks.pauseUpdate();
     }
+  }
+  void createText (float x, float y, float w, float h) {
+    fill(white);
+    textAlign (CENTER, CENTER);
+    textFont(font, 40);
+    text("Score! Press SPACE to resume.", x, y, w, h);
+    fill(defaultCol);
   }
 }
 

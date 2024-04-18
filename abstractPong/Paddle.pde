@@ -14,9 +14,7 @@ class Paddle extends Rectangle {
 
   //methods
   void draw() {
-    fill (col);
-    rect(x, y, w, h);
-    fill(defaultCol);
+    rectangle();
 
 
     if (up == true) {

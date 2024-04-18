@@ -6,6 +6,12 @@ abstract class Circle extends Shape {
 
   //methods
   abstract void draw();
+  
+  void ball() {
+   fill (col);
+   ellipse(x, y, w, h);
+   fill(defaultCol); 
+  }
 
   /* color nightModeCol() { ---------- potential nightMode...
    color nm = 0;

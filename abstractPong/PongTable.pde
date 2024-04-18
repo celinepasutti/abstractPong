@@ -8,15 +8,8 @@ class PongTable extends Rectangle {
 
   //methods
   void draw() {
-    fill (col);
-    rect(x, y, w, h);
-    fill(defaultCol);
+    rectangle();
   }
-
-  /* color nightModeCol() { ---------- potential nightMode...
-   color nm = 0;
-   return nm;
-   }*/
 }
 
 //RESP:::

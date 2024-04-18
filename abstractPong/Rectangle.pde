@@ -6,9 +6,10 @@ abstract class Rectangle extends Shape {
 
   //methods
   abstract void draw();
-
-  /* color nightModeCol() { ---------- potential nightMode...
-   color nm = 0;
-   return nm;
-   }*/
+  
+  void rectangle() {
+    fill (col);
+    rect(x, y, w, h);
+    fill(defaultCol);
+  }
 }
