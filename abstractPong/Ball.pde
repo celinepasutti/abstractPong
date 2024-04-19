@@ -6,6 +6,7 @@ class Ball extends Circle {
   float paddlex, paddley, paddlew, paddleh;
   Boolean rSide = false;
   Boolean paused = false;
+  Boolean scoreCondition = false;
 
   Ball (color col, float x, float y, float w, float h) {
     super(col, x, y, w, h);
@@ -37,7 +38,7 @@ class Ball extends Circle {
   void draw() {
     ball();
 
-    paused();
+    pause();
     move();
   }
 
@@ -81,16 +82,22 @@ class Ball extends Circle {
     } 
   }
 
-  void paused() {
+  void pause() {
     if (paused == true) {
       this.x = xStart;
       this.y = yStart;
       fill(black);
       rect(0, 0, appWidth, appHeight);
       fill(defaultCol);
+      if(scoreCondition == true) {
       fill(white);
-      createText(0, 0, appWidth, appHeight);
+      createText("Score! Press SPACE to resume.", 0, 0, appWidth, appHeight);
       fill(defaultCol);
+      } else {
+      fill(white);
+      createText("New game! Click the mouse and press SPACE to start.", 0, 0, appWidth, appHeight);
+      fill(defaultCol);
+      }
     }
   }
 
@@ -119,6 +126,7 @@ class Ball extends Circle {
     fireworks = new Fireworks(0, xParameter, yParameter, 0, 0, gravityParameter);
     
     paused = true;
+    scoreCondition = true;
     this.x = xStart;
     this.y = yStart;
     this.xSpeed *= xSpeedChange();
@@ -128,14 +136,15 @@ class Ball extends Circle {
   void endPause() {
     if (paused == true && key == ' ') {
       paused = false;
+      scoreCondition = false;
       fireworks.pauseUpdate();
     }
   }
-  void createText (float x, float y, float w, float h) {
+  void createText (String text, float x, float y, float w, float h) {
     fill(white);
     textAlign (CENTER, CENTER);
     textFont(font, 40);
-    text("Score! Press SPACE to resume.", x, y, w, h);
+    text(text, x, y, w, h);
     fill(defaultCol);
   }
 }

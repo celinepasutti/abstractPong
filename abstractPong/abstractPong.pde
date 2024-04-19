@@ -7,7 +7,7 @@ Fireworks fireworks;
 
 Ball myBall;
 
-color black=#000000, white=#FFFFFF, red=#951111, Lgreen=#27C149, gray=#CBCBCB;
+color black=#000000, white=#FFFFFF, red=#951111, Lgreen=#27C149, gray=#898989;
 
 void setup() {
   //size(400, 600);
@@ -42,6 +42,8 @@ void setup() {
 
 
     fireworks = new Fireworks(0, appWidth*-1, appHeight*-1, appHeight*1/30, appWidth*1/30, 0.5);
+    
+    myBall.paused = true;
   }
 }
 
@@ -61,8 +63,8 @@ void draw() {
     rPaddle.draw();
     lPaddle.draw();
 
-    
-    
+
+
     myBall.draw();
     fireworks.draw();
 
@@ -96,6 +98,12 @@ void mousePressed() {
     if (mouseX >= quit.x && mouseX <= (quit.x + quit.w) && mouseY >= quit.y && mouseY <= (quit.y + quit.h)) {
       println("terminated");
       exit();
+    }
+    if (mouseX >= restart.x && mouseX <= (restart.x + restart.w) && mouseY >= restart.y && mouseY <= (restart.y + restart.h)) {
+      println("newly initiated");
+      myBall.paused = true;
+      lScore.scoreReset();
+      rScore.scoreReset();
     }
   }
 }

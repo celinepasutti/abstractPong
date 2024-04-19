@@ -81,7 +81,7 @@ class Fireworks extends Ball {
 
   void pauseUpdate() {
     for (int i=0; i < fx.length; i++) {
-      if (paused == false) {
+      if (scoreCondition == false) {
         fx[i] = appWidth*-1;
         fy[i] = appHeight*-1;
       }
