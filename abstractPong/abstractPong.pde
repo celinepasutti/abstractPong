@@ -42,7 +42,7 @@ void setup() {
 
 
     fireworks = new Fireworks(0, appWidth*-1, appHeight*-1, appHeight*1/30, appWidth*1/30, 0.5);
-    
+
     myBall.paused = true;
   }
 }

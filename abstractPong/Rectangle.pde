@@ -6,7 +6,7 @@ abstract class Rectangle extends Shape {
 
   //methods
   abstract void draw();
-  
+
   void rectangle() {
     fill (col);
     rect(x, y, w, h);

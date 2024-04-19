@@ -5,12 +5,12 @@ class Fireworks extends Ball {
   float[] fx = new float [amt];
   float[] fy = new float [amt];
   float[] fw = new float [amt];
-  
+
   float[] fxSpeed = new float[amt];
   float[] fySpeed = new float[amt];
-  
+
   color[] fc = new color [amt];
-  
+
 
   float xSpeedChange() {
     float xSpeedChange = int (random(-2, 2));
@@ -64,7 +64,7 @@ class Fireworks extends Ball {
       fy[i] += fySpeed[i] * ySpeedChange;
     }
   }
- 
+
   void bounce() {
     for (int i=0; i < fx.length; i++) {
       if (fy[i] < tabley + (fw[i]/2) || fy[i] > (tabley + tableh - (fw[i]/2))) {

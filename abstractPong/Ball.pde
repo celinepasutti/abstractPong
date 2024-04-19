@@ -79,7 +79,7 @@ class Ball extends Circle {
     }
     if (this.x < tablex + (w/2) || this.x > tablew - (w/2)) {
       this.xSpeed *=  -1;
-    } 
+    }
   }
 
   void pause() {
@@ -89,14 +89,14 @@ class Ball extends Circle {
       fill(black);
       rect(0, 0, appWidth, appHeight);
       fill(defaultCol);
-      if(scoreCondition == true) {
-      fill(white);
-      createText("Score! Press SPACE to resume.", 0, 0, appWidth, appHeight);
-      fill(defaultCol);
+      if (scoreCondition == true) {
+        fill(white);
+        createText("Score! Press SPACE to resume.", 0, 0, appWidth, appHeight);
+        fill(defaultCol);
       } else {
-      fill(white);
-      createText("New game! Click the mouse and press SPACE to start.", 0, 0, appWidth, appHeight);
-      fill(defaultCol);
+        fill(white);
+        createText("New game! Click the mouse and press SPACE to start.", 0, 0, appWidth, appHeight);
+        fill(defaultCol);
       }
     }
   }
@@ -124,7 +124,7 @@ class Ball extends Circle {
 
   void netExplosion(float xParameter, float yParameter, float gravityParameter) {
     fireworks = new Fireworks(0, xParameter, yParameter, 0, 0, gravityParameter);
-    
+
     paused = true;
     scoreCondition = true;
     this.x = xStart;

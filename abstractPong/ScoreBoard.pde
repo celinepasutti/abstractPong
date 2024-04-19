@@ -29,10 +29,10 @@ class ScoreBoard extends Rectangle {
     this.score += 1;
     this.scoreText = str(this.score);
   }
-  
+
   void scoreReset() {
-   this.score = 0;
-   this.scoreText = str(this.score);
+    this.score = 0;
+    this.scoreText = str(this.score);
   }
 
   void createText (float x, float y, float w, float h) {
