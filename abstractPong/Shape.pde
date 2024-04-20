@@ -2,6 +2,7 @@ abstract class Shape {
   //class vars
   float x, y, w, h;
   color col, defaultCol;
+  float xStart, yStart;
 
   Shape(color col, float x, float y, float w, float h) {
     this.col = col;
@@ -10,6 +11,8 @@ abstract class Shape {
     this.w = w;
     this.h = h;
     defaultCol = 0; //nightModeCol();
+    this.xStart = x;
+    this.yStart = y;
   }
 
 

@@ -11,7 +11,3 @@ class PongTable extends Rectangle {
     rectangle();
   }
 }
-
-//RESP:::
-//GIVES BAlL BOUNCE
-//GIVES PADDLE EDGE OF NET

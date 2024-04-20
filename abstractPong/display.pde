@@ -1,5 +1,5 @@
 float appWidth, appHeight;
-boolean correctlyOriented;
+Boolean correctlyOriented;
 
 void display() {
   appWidth = width;

@@ -4,8 +4,10 @@ Button quit, restart, oneP, twoP, nullP;
 ScoreBoard lScore, rScore;
 Paddle rPaddle, lPaddle;
 Fireworks fireworks;
-
 Ball myBall;
+
+Boolean onePlayer = false;
+Boolean twoPlayer = false;
 
 color black=#000000, white=#FFFFFF, red=#951111, Lgreen=#27C149, gray=#898989;
 
@@ -13,7 +15,7 @@ void setup() {
   //size(400, 600);
   fullScreen();
   noStroke();
-  println("intitiated");
+  println("initiated");
   display();
 
   if (correctlyOriented == true) {
@@ -22,8 +24,8 @@ void setup() {
     quit = new Button("x", 40, red, appWidth*17/20, appHeight*1/30, appWidth/10, appHeight/24);
     restart = new Button("NEW GAME", 20, Lgreen, appWidth*1/20, appHeight*1/30, appWidth/10, appHeight/24);
     oneP = new Button("ONE PLAYER", 20, myTable.col, appWidth*1/20, appHeight*28/30, appWidth/10, appHeight/24);
-    twoP = new Button("TWO PLAYERS", 20, myTable.col, appWidth*9/20, appHeight*28/30, appWidth/10, appHeight/24);
-    nullP = new Button("SCREEN SAVER", 20, myTable.col, appWidth*17/20, appHeight*28/30, appWidth/10, appHeight/24);
+    //nullP = new Button("SCREEN SAVER", 20, myTable.col, appWidth*9/20, appHeight*28/30, appWidth/10, appHeight/24);
+    twoP = new Button("TWO PLAYERS", 20, myTable.col, appWidth*17/20, appHeight*28/30, appWidth/10, appHeight/24);
 
     rScore = new ScoreBoard(black, appWidth*6/20, appHeight*1/30, appWidth/10, appHeight/24);
     lScore = new ScoreBoard(black, appWidth*12/20, appHeight*1/30, appWidth/10, appHeight/24);
@@ -54,26 +56,30 @@ void draw() {
   } else {
     myTable.draw();
 
-    quit.draw();
-    restart.draw();
-    oneP.draw();
-    twoP.draw();
-    nullP.draw();
-
     rPaddle.draw();
     lPaddle.draw();
-
-
 
     myBall.draw();
     fireworks.draw();
 
+    quit.draw();
+    restart.draw();
+    oneP.draw();
+    twoP.draw();
+    //nullP.draw();
+
     lScore.draw();
     rScore.draw();
 
+    if (onePlayer == true) {
+     lPaddle.ballUpdate(myBall.y); 
+    }
+    if (onePlayer == false && twoPlayer == false) {
+     rPaddle.ballUpdate(myBall.y);
+     lPaddle.ballUpdate(myBall.y);
+    }
+
     myBall.paddleUpdate(rPaddle.x, lPaddle.x, rPaddle.y, lPaddle.y, rPaddle.w, lPaddle.w, rPaddle.h, lPaddle.h);
-
-
 
     //goal
     if (myBall.x < myBall.w) {
@@ -102,8 +108,18 @@ void mousePressed() {
     if (mouseX >= restart.x && mouseX <= (restart.x + restart.w) && mouseY >= restart.y && mouseY <= (restart.y + restart.h)) {
       println("newly initiated");
       myBall.paused = true;
-      lScore.scoreReset();
-      rScore.scoreReset();
+      onePlayer = false;
+      twoPlayer = false;
+    } 
+    if (mouseX >= oneP.x && mouseX <= (oneP.x + oneP.w) && mouseY >= oneP.y && mouseY <= (oneP.y + oneP.h)) {
+      myBall.paused = true;
+      onePlayer = true;
+      twoPlayer = false;
+    }
+    if (mouseX >= twoP.x && mouseX <= (twoP.x + twoP.w) && mouseY >= twoP.y && mouseY <= (twoP.y + twoP.h)) {
+      myBall.paused = true;
+      onePlayer = false;
+      twoPlayer = true;
     }
   }
 }
@@ -111,8 +127,12 @@ void mousePressed() {
 
 void keyPressed() {
   if (correctlyOriented == true) {
-    rPaddle.keyPressedWASD();
-    lPaddle.keyPressedARROW();
+    if (twoPlayer == true) {
+      rPaddle.keyPressedWASD();
+      lPaddle.keyPressedARROW();
+    } else if (onePlayer == true) {
+      rPaddle.keyPressedWASD();
+    }
     myBall.endPause();
   }
 
@@ -123,7 +143,11 @@ void keyPressed() {
 
 void keyReleased() {
   if (correctlyOriented == true) {
-    rPaddle.keyReleasedWASD();
-    lPaddle.keyReleasedARROW();
+    if (twoPlayer == true) {
+      rPaddle.keyReleasedWASD();
+      lPaddle.keyReleasedARROW();
+    } else if (onePlayer == true) {
+      rPaddle.keyReleasedWASD();
+    }
   }
 }

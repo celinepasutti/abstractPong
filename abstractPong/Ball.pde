@@ -1,17 +1,16 @@
 class Ball extends Circle {
   //class vars
   PFont font = createFont("MS UI Gothic", 55);
-  float xStart, yStart, xSpeed, ySpeed, xSpeedChange, ySpeedChange;
+  float xSpeed, ySpeed, xSpeedChange, ySpeedChange;
   float tablex, tabley, tablew, tableh;
   float paddlex, paddley, paddlew, paddleh;
   Boolean rSide = false;
+  Boolean dangerClose = false;
+  Boolean scoreCondition = false; 
   Boolean paused = false;
-  Boolean scoreCondition = false;
 
   Ball (color col, float x, float y, float w, float h) {
     super(col, x, y, w, h);
-    xStart = x;
-    yStart = y;
     xSpeed = 3*xSpeedChange();
     ySpeed = 3*ySpeedChange();
     xSpeedChange = 1.2; //break bounce physics - change speed
@@ -40,6 +39,35 @@ class Ball extends Circle {
 
     pause();
     move();
+    
+    if (onePlayer == true) {
+      if (this.rSide == false) {
+        if (this.x > tablew*3/4) {
+        lPaddle.ballSnipe();
+        } else {
+        lPaddle.closeIsh();
+        }
+      } else {
+        lPaddle.newGame();
+      }
+    }
+    if (onePlayer == false && twoPlayer == false) {
+      if (this.rSide == false) {
+        rPaddle.newGame();
+        if (this.x > tablew*3/4) {
+        lPaddle.ballSnipe();
+        } else {
+        lPaddle.closeIsh();
+        }
+      } else {
+        lPaddle.newGame();
+        if (this.x < tablew*1/4) {
+        rPaddle.ballSnipe();
+        } else {
+        rPaddle.closeIsh();
+        }
+      }
+    }
   }
 
   void move() {
@@ -95,8 +123,12 @@ class Ball extends Circle {
         fill(defaultCol);
       } else {
         fill(white);
-        createText("New game! Click the mouse and press SPACE to start.", 0, 0, appWidth, appHeight);
+        createText("New game! Select player number and press SPACE to start.", 0, 0, appWidth, appHeight);
         fill(defaultCol);
+        lScore.scoreReset();
+        rScore.scoreReset();
+        rPaddle.newGame();
+        lPaddle.newGame();
       }
     }
   }

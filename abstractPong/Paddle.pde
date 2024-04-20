@@ -3,13 +3,15 @@ class Paddle extends Rectangle {
   Boolean up, down;
   float paddleSpeed;
   float tablex, tabley, tablew, tableh;
+  float bally;
+  float buffer;
 
   Paddle(color col, float x, float y, float w, float h) {
     super(col, x, y, w, h);
     paddleSpeed = 9;
     this.up = false;
     this.down = false;
-    //add gravity - dictates firework move physics.
+    this.buffer = (random(-500, 500));
   }
 
   //methods
@@ -39,11 +41,54 @@ class Paddle extends Rectangle {
     }
   }
 
+  void ballSnipe() {
+    if (this.y < (bally + - this.h*1/2)) {
+      this.y += paddleSpeed;
+    }
+    if (this.y > (bally + - this.h*1/2)) {
+      this.y -= paddleSpeed;
+    }
+    if (this.y < tabley) { //error catch
+      this.y = tabley;
+    }
+    if ((y + h) > (tabley + tableh)) {
+      this.y = ((tabley + tableh) - h);
+    }
+  }
+  
+  void closeIsh() {
+    if (this.y < (bally + - this.h*1/2 + this.buffer)) {
+      this.y += paddleSpeed;
+    }
+    if (this.y > (bally + - this.h*1/2 + this.buffer)) {
+      this.y -= paddleSpeed;
+    }
+    if (this.y < tabley) { //error catch
+      this.y = tabley;
+    }
+    if ((y + h) > (tabley + tableh)) {
+      this.y = ((tabley + tableh) - h);
+    }
+  }
+
+  void newGame() {
+    if (this.y < yStart) {
+      this.y += paddleSpeed;
+    }
+    if (this.y > yStart) {
+      this.y -= paddleSpeed;
+    }
+  }
+
   void tableUpdate(float tablexParameter, float tableyParameter, float tablewParameter, float tablehParameter) {
     tablex = tablexParameter;
     tabley = tableyParameter;
     tablew = tablewParameter;
     tableh = tablehParameter;
+  }
+
+  void ballUpdate(float ballyParameter) {
+    bally =  ballyParameter;
   }
 
   void keyPressedWASD() {
