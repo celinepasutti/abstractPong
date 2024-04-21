@@ -23,9 +23,9 @@ void setup() {
 
     quit = new Button("x", 40, red, appWidth*17/20, appHeight*1/30, appWidth/10, appHeight/24);
     restart = new Button("NEW GAME", 20, Lgreen, appWidth*1/20, appHeight*1/30, appWidth/10, appHeight/24);
-    oneP = new Button("ONE PLAYER", 20, myTable.col, appWidth*1/20, appHeight*28/30, appWidth/10, appHeight/24);
+    oneP = new Button("ONE PLAYER", 50, myTable.col, appWidth*1/5, appHeight*3/5, appWidth*1/5, appHeight*1/5);
     //nullP = new Button("SCREEN SAVER", 20, myTable.col, appWidth*9/20, appHeight*28/30, appWidth/10, appHeight/24);
-    twoP = new Button("TWO PLAYERS", 20, myTable.col, appWidth*17/20, appHeight*28/30, appWidth/10, appHeight/24);
+    twoP = new Button("TWO PLAYERS", 50, myTable.col, appWidth*3/5, appHeight*3/5, appWidth*1/5, appHeight*1/5);
 
     rScore = new ScoreBoard(black, appWidth*6/20, appHeight*1/30, appWidth/10, appHeight/24);
     lScore = new ScoreBoard(black, appWidth*12/20, appHeight*1/30, appWidth/10, appHeight/24);
@@ -64,9 +64,6 @@ void draw() {
 
     quit.draw();
     restart.draw();
-    oneP.draw();
-    twoP.draw();
-    //nullP.draw();
 
     lScore.draw();
     rScore.draw();
@@ -96,7 +93,7 @@ void draw() {
 
 void mousePressed() {
   if (correctlyOriented == true) {
-    if (mouseX > myTable.x && mouseX < (myTable.x + myTable.w) && mouseY > myTable.y && mouseY < (myTable.y + myTable.h)) { //movedBall error catch
+    if (myBall.paused == false && mouseX > myTable.x && mouseX < (myTable.x + myTable.w) && mouseY > myTable.y && mouseY < (myTable.y + myTable.h)) { //movedBall error catch
       println("ball moved");
       myBall.x = mouseX;
       myBall.y = mouseY;
@@ -111,13 +108,13 @@ void mousePressed() {
       onePlayer = false;
       twoPlayer = false;
     } 
-    if (mouseX >= oneP.x && mouseX <= (oneP.x + oneP.w) && mouseY >= oneP.y && mouseY <= (oneP.y + oneP.h)) {
-      myBall.paused = true;
+    if (myBall.paused == true && onePlayer == false && twoPlayer == false && mouseX >= oneP.x && mouseX <= (oneP.x + oneP.w) && mouseY >= oneP.y && mouseY <= (oneP.y + oneP.h)) {
+      println("one player selected");
       onePlayer = true;
       twoPlayer = false;
     }
-    if (mouseX >= twoP.x && mouseX <= (twoP.x + twoP.w) && mouseY >= twoP.y && mouseY <= (twoP.y + twoP.h)) {
-      myBall.paused = true;
+    if (myBall.paused == true && onePlayer == false && twoPlayer == false && mouseX >= twoP.x && mouseX <= (twoP.x + twoP.w) && mouseY >= twoP.y && mouseY <= (twoP.y + twoP.h)) {
+      println("two player selected");
       onePlayer = false;
       twoPlayer = true;
     }

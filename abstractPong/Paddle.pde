@@ -11,7 +11,7 @@ class Paddle extends Rectangle {
     paddleSpeed = 9;
     this.up = false;
     this.down = false;
-    this.buffer = (random(-500, 500));
+    this.buffer = (random(-200, 200));
   }
 
   //methods

@@ -125,6 +125,9 @@ class Ball extends Circle {
         fill(white);
         createText("New game! Select player number and press SPACE to start.", 0, 0, appWidth, appHeight);
         fill(defaultCol);
+        oneP.draw();
+        twoP.draw();
+        
         lScore.scoreReset();
         rScore.scoreReset();
         rPaddle.newGame();
@@ -172,6 +175,7 @@ class Ball extends Circle {
       fireworks.pauseUpdate();
     }
   }
+  
   void createText (String text, float x, float y, float w, float h) {
     fill(white);
     textAlign (CENTER, CENTER);
