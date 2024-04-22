@@ -6,7 +6,7 @@ class Ball extends Circle {
   float paddlex, paddley, paddlew, paddleh;
   Boolean rSide = false;
   Boolean dangerClose = false;
-  Boolean scoreCondition = false; 
+  Boolean scoreCondition = false;
   Boolean paused = false;
 
   Ball (color col, float x, float y, float w, float h) {
@@ -36,16 +36,19 @@ class Ball extends Circle {
 
   void draw() {
     ball();
+    println(this.xSpeed);
 
     pause();
     move();
-    
+
     if (onePlayer == true) {
       if (this.rSide == false) {
-        if (this.x > tablew*3/4) {
-        lPaddle.ballSnipe();
+        if (this.x > tablew*3/4 && this.xSpeed > 0) {
+          lPaddle.ballSnipe();
         } else {
-        lPaddle.closeIsh();
+          if (this.xSpeed > 0) { // keep this line if you want the paddle to not move after x direction goes back to the other direction.
+            lPaddle.closeIsh();
+          }
         }
       } else {
         lPaddle.newGame();
@@ -55,16 +58,20 @@ class Ball extends Circle {
       if (this.rSide == false) {
         rPaddle.newGame();
         if (this.x > tablew*3/4) {
-        lPaddle.ballSnipe();
+          lPaddle.ballSnipe();
         } else {
-        lPaddle.closeIsh();
+          if (this.xSpeed > 0) {
+            lPaddle.closeIsh();
+          }
         }
       } else {
         lPaddle.newGame();
         if (this.x < tablew*1/4) {
-        rPaddle.ballSnipe();
+          rPaddle.ballSnipe();
         } else {
-        rPaddle.closeIsh();
+          if (this.xSpeed < 0) {
+            rPaddle.closeIsh();
+          }
         }
       }
     }
@@ -127,7 +134,7 @@ class Ball extends Circle {
         fill(defaultCol);
         oneP.draw();
         twoP.draw();
-        
+
         lScore.scoreReset();
         rScore.scoreReset();
         rPaddle.newGame();
@@ -175,7 +182,7 @@ class Ball extends Circle {
       fireworks.pauseUpdate();
     }
   }
-  
+
   void createText (String text, float x, float y, float w, float h) {
     fill(white);
     textAlign (CENTER, CENTER);

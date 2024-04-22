@@ -108,12 +108,12 @@ void mousePressed() {
       onePlayer = false;
       twoPlayer = false;
     } 
-    if (myBall.paused == true && onePlayer == false && twoPlayer == false && mouseX >= oneP.x && mouseX <= (oneP.x + oneP.w) && mouseY >= oneP.y && mouseY <= (oneP.y + oneP.h)) {
+    if (myBall.paused == true && myBall.scoreCondition == false && mouseX >= oneP.x && mouseX <= (oneP.x + oneP.w) && mouseY >= oneP.y && mouseY <= (oneP.y + oneP.h)) {
       println("one player selected");
       onePlayer = true;
       twoPlayer = false;
     }
-    if (myBall.paused == true && onePlayer == false && twoPlayer == false && mouseX >= twoP.x && mouseX <= (twoP.x + twoP.w) && mouseY >= twoP.y && mouseY <= (twoP.y + twoP.h)) {
+    if (myBall.paused == true && myBall.scoreCondition == false && mouseX >= twoP.x && mouseX <= (twoP.x + twoP.w) && mouseY >= twoP.y && mouseY <= (twoP.y + twoP.h)) {
       println("two player selected");
       onePlayer = false;
       twoPlayer = true;
