@@ -112,11 +112,13 @@ void mousePressed() {
       println("one player selected");
       onePlayer = true;
       twoPlayer = false;
+      myBall.endPauseMP();
     }
     if (myBall.paused == true && myBall.scoreCondition == false && mouseX >= twoP.x && mouseX <= (twoP.x + twoP.w) && mouseY >= twoP.y && mouseY <= (twoP.y + twoP.h)) {
       println("two player selected");
       onePlayer = false;
       twoPlayer = true;
+      myBall.endPauseMP();
     }
   }
 }
@@ -130,7 +132,7 @@ void keyPressed() {
     } else if (onePlayer == true) {
       rPaddle.keyPressedWASD();
     }
-    myBall.endPause();
+    myBall.endPauseKP();
   }
 
   if (key == ESC) {

@@ -11,7 +11,7 @@ class Paddle extends Rectangle {
     paddleSpeed = 9;
     this.up = false;
     this.down = false;
-    this.buffer = (random(-200, 200));
+    buffer = (random(-200, 200));
   }
 
   //methods
@@ -93,10 +93,12 @@ class Paddle extends Rectangle {
 
   void keyPressedWASD() {
     if (key == 'w' || key == 'W') {
+      buffer = (random(-200, 200));
       down = false;
       up = true;
     }
     if ( key == 's' || key == 'S') {
+      buffer = (random(-200, 200));
       up = false;
       down = true;
     }

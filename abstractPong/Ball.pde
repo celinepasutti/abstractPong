@@ -5,7 +5,6 @@ class Ball extends Circle {
   float tablex, tabley, tablew, tableh;
   float paddlex, paddley, paddlew, paddleh;
   Boolean rSide = false;
-  Boolean dangerClose = false;
   Boolean scoreCondition = false;
   Boolean paused = false;
 
@@ -13,7 +12,7 @@ class Ball extends Circle {
     super(col, x, y, w, h);
     xSpeed = 3*xSpeedChange();
     ySpeed = 3*ySpeedChange();
-    xSpeedChange = 1.2; //break bounce physics - change speed
+    xSpeedChange = 1.2; //zoom zoom zoom zoom zoom zoom
     ySpeedChange = 1.2;
   }
 
@@ -21,13 +20,13 @@ class Ball extends Circle {
   float xSpeedChange() {
     float xSpeedChange = int (random(-2, 2));
     while (xSpeedChange == 0) {
-      xSpeedChange = int (random(-2, 2)); //variable must be populated FIRST!
+      xSpeedChange = int (random(-2, 2));
     }
     return xSpeedChange;
   }
 
   float ySpeedChange() {
-    float ySpeedChange = int (random(-2, 2)); //THIS IS THE CODE FOR CHANGING THE SPEED!!!!!!!!!!!11111!!!!!!1!11!!
+    float ySpeedChange = int (random(-2, 2)); //idk how but changing this to anything other than two literally breaks the laws of physics so leave it alone....
     while (ySpeedChange == 0) {
       ySpeedChange = int (random(-2, 2));
     }
@@ -36,45 +35,12 @@ class Ball extends Circle {
 
   void draw() {
     ball();
-    println(this.xSpeed);
 
     pause();
     move();
 
-    if (onePlayer == true) {
-      if (this.rSide == false) {
-        if (this.x > tablew*3/4 && this.xSpeed > 0) {
-          lPaddle.ballSnipe();
-        } else {
-          if (this.xSpeed > 0) { // keep this line if you want the paddle to not move after x direction goes back to the other direction.
-            lPaddle.closeIsh();
-          }
-        }
-      } else {
-        lPaddle.newGame();
-      }
-    }
-    if (onePlayer == false && twoPlayer == false) {
-      if (this.rSide == false) {
-        rPaddle.newGame();
-        if (this.x > tablew*3/4) {
-          lPaddle.ballSnipe();
-        } else {
-          if (this.xSpeed > 0) {
-            lPaddle.closeIsh();
-          }
-        }
-      } else {
-        lPaddle.newGame();
-        if (this.x < tablew*1/4) {
-          rPaddle.ballSnipe();
-        } else {
-          if (this.xSpeed < 0) {
-            rPaddle.closeIsh();
-          }
-        }
-      }
-    }
+    onePlayerPaddle();
+    onlyChild();
   }
 
   void move() {
@@ -116,6 +82,46 @@ class Ball extends Circle {
       this.xSpeed *=  -1;
     }
   }
+  
+  void onePlayerPaddle () {
+     if (onePlayer == true) {
+      if (this.rSide == false) {
+        if (this.x > tablew*3/4) {
+          lPaddle.ballSnipe();
+        } else {
+          if (this.xSpeed > 0) { // keep this line if you want the paddle to not move after x direction goes back to the other direction.
+            lPaddle.closeIsh();
+          }
+        }
+      } else {
+        lPaddle.newGame();
+      }
+    }
+  }
+  
+  void onlyChild() {
+    if (onePlayer == false && twoPlayer == false) {
+      if (this.rSide == false) {
+        rPaddle.newGame();
+        if (this.x > tablew*3/4) {
+          lPaddle.ballSnipe();
+        } else {
+          if (this.xSpeed > 0) {
+            lPaddle.closeIsh();
+          }
+        }
+      } else {
+        lPaddle.newGame();
+        if (this.x < tablew*1/4) {
+          rPaddle.ballSnipe();
+        } else {
+          if (this.xSpeed < 0) {
+            rPaddle.closeIsh();
+          }
+        }
+      }
+    }
+  }
 
   void pause() {
     if (paused == true) {
@@ -130,7 +136,7 @@ class Ball extends Circle {
         fill(defaultCol);
       } else {
         fill(white);
-        createText("New game! Select player number and press SPACE to start.", 0, 0, appWidth, appHeight);
+        createText("New game! Select player number to start.", 0, 0, appWidth, appHeight);
         fill(defaultCol);
         oneP.draw();
         twoP.draw();
@@ -175,8 +181,16 @@ class Ball extends Circle {
     this.ySpeed *= ySpeedChange();
   }
 
-  void endPause() {
+  void endPauseKP() {
     if (paused == true && key == ' ') {
+      paused = false;
+      scoreCondition = false;
+      fireworks.pauseUpdate();
+    }
+  }
+
+  void endPauseMP() {
+    if (paused == true) {
       paused = false;
       scoreCondition = false;
       fireworks.pauseUpdate();
