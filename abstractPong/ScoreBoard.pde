@@ -3,12 +3,14 @@ class ScoreBoard extends Rectangle {
   PFont font = createFont("MS UI Gothic", 55);
   String text;
   int score = 0;
+  int textSize;
   String scoreText;
   Boolean inNet = false;
 
   ScoreBoard(color col, float x, float y, float w, float h) {
     super(col, x, y, w, h);
     this.scoreText = str(this.score);
+    textSize = int(appWidth*1/40);
   }
 
   //methods
@@ -38,7 +40,7 @@ class ScoreBoard extends Rectangle {
   void createText (float x, float y, float w, float h) {
     fill(white);
     textAlign (CENTER, CENTER);
-    textFont(font, 40);
+    textFont(font, textSize);
     text(scoreText, x, y, w, h);
     fill(defaultCol);
   }

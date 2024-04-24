@@ -45,13 +45,13 @@ class Ball extends Circle {
 
   void move() {
     bounce();
-    x += xSpeed * xSpeedChange;
-    y += ySpeed * ySpeedChange;
+    this.x += xSpeed * xSpeedChange;
+    this.y += ySpeed * ySpeedChange;
 
-    if (x < (tablew*1/2)) {
-      rSide = true;
+    if (this.x < (tablew*1/2)) {
+      this.rSide = true;
     } else {
-      rSide = false;
+      this.rSide = false;
     }
   }
 
@@ -173,10 +173,6 @@ class Ball extends Circle {
   void netExplosion(float xParameter, float yParameter, float gravityParameter) {
     fireworks = new Fireworks(0, xParameter, yParameter, 0, 0, gravityParameter);
 
-    paused = true;
-    scoreCondition = true;
-    this.x = xStart;
-    this.y = yStart;
     this.xSpeed *= xSpeedChange();
     this.ySpeed *= ySpeedChange();
   }
@@ -205,6 +201,5 @@ class Ball extends Circle {
     fill(defaultCol);
   }
 }
-
 //RESP:::
 //NETEXPLOSION
