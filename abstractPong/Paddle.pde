@@ -1,14 +1,18 @@
 class Paddle extends Rectangle {
   //class vars
   Boolean up, down;
-  float paddleSpeed;
+  float speed, speedStart;
+  float hStart;
   float tablex, tabley, tablew, tableh;
   float bally;
   float buffer;
+  Boolean adv3 = false;
 
   Paddle(color col, float x, float y, float w, float h) {
     super(col, x, y, w, h);
-    paddleSpeed = 9;
+    hStart = h;
+    speedStart = 9;
+    speed = speedStart;
     this.up = false;
     this.down = false;
     buffer = (random(-200, 200));
@@ -25,17 +29,19 @@ class Paddle extends Rectangle {
     if (down == true) {
       movePaddleDown();
     }
+    
+    decrease();
   }
 
   void movePaddleUp() {
-    y -= paddleSpeed;
+    y -= speed;
     if (y < tabley) { //error catch
       y = tabley;
     }
   }
 
   void movePaddleDown() {
-    y += paddleSpeed;
+    y += speed;
     if ((y + h) > (tabley + tableh)) {
       y = ((tabley + tableh) - h);
     }
@@ -43,10 +49,10 @@ class Paddle extends Rectangle {
 
   void ballSnipe() {
     if (this.y < (bally + - this.h*1/2)) {
-      this.y += paddleSpeed;
+      this.y += speed;
     }
     if (this.y > (bally + - this.h*1/2)) {
-      this.y -= paddleSpeed;
+      this.y -= speed;
     }
     if (this.y < tabley) { //error catch
       this.y = tabley;
@@ -55,13 +61,13 @@ class Paddle extends Rectangle {
       this.y = ((tabley + tableh) - h);
     }
   }
-  
+
   void closeIsh() {
     if (this.y < (bally + - this.h*1/2 + this.buffer)) {
-      this.y += paddleSpeed;
+      this.y += speed;
     }
     if (this.y > (bally + - this.h*1/2 + this.buffer)) {
-      this.y -= paddleSpeed;
+      this.y -= speed;
     }
     if (this.y < tabley) { //error catch
       this.y = tabley;
@@ -73,10 +79,23 @@ class Paddle extends Rectangle {
 
   void newGame() {
     if (this.y < yStart) {
-      this.y += paddleSpeed;
+      this.y += speed;
     }
     if (this.y > yStart) {
-      this.y -= paddleSpeed;
+      this.y -= speed;
+    }
+  }
+
+  void reset() {
+    this.h = hStart;
+    this.speed = speedStart;
+  }
+
+  void decrease() {
+    if (adv3 == true) {
+      this.h *= 0.9;
+      this.speed *= 0.75;
+      adv3 = false;
     }
   }
 

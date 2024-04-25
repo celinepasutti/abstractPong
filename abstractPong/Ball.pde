@@ -140,9 +140,7 @@ class Ball extends Circle {
         fill(defaultCol);
         oneP.draw();
         twoP.draw();
-
-        lScore.scoreReset();
-        rScore.scoreReset();
+         
         rPaddle.newGame();
         lPaddle.newGame();
       }
@@ -172,7 +170,8 @@ class Ball extends Circle {
 
   void netExplosion(float xParameter, float yParameter, float gravityParameter) {
     fireworks = new Fireworks(0, xParameter, yParameter, 0, 0, gravityParameter);
-
+    fireworks.tableUpdate(myTable.x, myTable.y, myTable.w, myTable.h);
+    
     this.xSpeed *= xSpeedChange();
     this.ySpeed *= ySpeedChange();
   }

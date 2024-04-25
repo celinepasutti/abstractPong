@@ -64,10 +64,10 @@ void draw() {
 
     myBall.draw();
     /*if (myBall.paused == false && multipleBalls == true) {
-     yourBall.draw(); 
-    }
-    */
-    
+     yourBall.draw();
+     }
+     */
+
     fireworks.draw();
 
     quit.draw();
@@ -87,38 +87,49 @@ void draw() {
     myBall.paddleUpdate(rPaddle.x, lPaddle.x, rPaddle.y, lPaddle.y, rPaddle.w, lPaddle.w, rPaddle.h, lPaddle.h);
     /*
     if (multipleBalls == true && myBall.paused == false) {
-      yourBall.paddleUpdate(rPaddle.x, lPaddle.x, rPaddle.y, lPaddle.y, rPaddle.w, lPaddle.w, rPaddle.h, lPaddle.h);
-    }*/
+     yourBall.paddleUpdate(rPaddle.x, lPaddle.x, rPaddle.y, lPaddle.y, rPaddle.w, lPaddle.w, rPaddle.h, lPaddle.h);
+     }*/
 
-    //goal
-    if (myBall.paused == false && myBall.x < myBall.w) {
-      lScore.inNet = true;
-      myBall.netExplosion(myBall.x, myBall.y, 0.5);
-      myBall.paused = true;
-      myBall.scoreCondition = true;
-    }
-    if (myBall.paused == false && myBall.x > (appWidth - myBall.w)) {
-      rScore.inNet = true;
-      myBall.netExplosion(myBall.x, myBall.y, 0.5);
-      myBall.paused = true;
-      myBall.scoreCondition = true;
-    }
-    /*
-    if (myBall.paused == false && multipleBalls == true && yourBall.x < yourBall.w ) {
-      lScore.inNet = true;
-      yourBall.netExplosion(yourBall.x, yourBall.y, 0.5);
-      myBall.paused = true;
-      myBall.scoreCondition = true;
-    }
-    if (myBall.paused == false && multipleBalls == true && yourBall.x > (appWidth - yourBall.w)) {
-      rScore.inNet = true;
-      yourBall.netExplosion(yourBall.x, yourBall.y, 0.5);
-      myBall.paused = true;
-      myBall.scoreCondition = true;
-    }
-    */
-    fireworks.tableUpdate(myTable.x, myTable.y, myTable.w, myTable.h);
+    goals();
   }
+}
+
+void goals() {
+  if (myBall.paused == false && myBall.x < myBall.w) {
+    lScore.inNet = true;
+    myBall.netExplosion(myBall.x, myBall.y, 0.5);
+    myBall.paused = true;
+    myBall.scoreCondition = true;
+    if ((lScore.score - rScore.score) % 3 == 0) {
+      lPaddle.adv3 = true;
+    }
+  }
+  if (myBall.paused == false && myBall.x > (appWidth - myBall.w)) {
+    rScore.inNet = true;
+    myBall.netExplosion(myBall.x, myBall.y, 0.5);
+    myBall.paused = true;
+    myBall.scoreCondition = true;
+    if ((rScore.score - lScore.score) % 3 == 0) {
+      rPaddle.adv3 = true;
+    }
+  }
+  /*
+    if (myBall.paused == false && multipleBalls == true && yourBall.x < yourBall.w ) {
+   lScore.inNet = true;
+   yourBall.netExplosion(yourBall.x, yourBall.y, 0.5);
+   myBall.paused = true;
+   myBall.scoreCondition = true;
+   }
+   if (myBall.paused == false && multipleBalls == true && yourBall.x > (appWidth - yourBall.w)) {
+   rScore.inNet = true;
+   yourBall.netExplosion(yourBall.x, yourBall.y, 0.5);
+   myBall.paused = true;
+   myBall.scoreCondition = true;
+   }
+   */
+}
+
+void scoreComparisons () {
 }
 
 void mousePressed() {
@@ -137,6 +148,11 @@ void mousePressed() {
       myBall.paused = true;
       onePlayer = false;
       twoPlayer = false;
+
+      lScore.scoreReset();
+      rScore.scoreReset();
+      rPaddle.reset();
+      lPaddle.reset();
     }
     if (myBall.paused == true && myBall.scoreCondition == false && mouseX >= oneP.x && mouseX <= (oneP.x + oneP.w) && mouseY >= oneP.y && mouseY <= (oneP.y + oneP.h)) {
       println("one player selected");
@@ -166,12 +182,12 @@ void keyPressed() {
 
     /*
     if (key == 'b' || key == 'B') {
-      if (multipleBalls == false) {
-        multipleBalls = true;
-      } else {
-        multipleBalls = false;
-      }
-    }*/
+     if (multipleBalls == false) {
+     multipleBalls = true;
+     } else {
+     multipleBalls = false;
+     }
+     }*/
   }
 
   if (key == ESC) {
