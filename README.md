@@ -1,2 +1,2 @@
 # abstractPong
-write code and variables once. Then, inherit.
+contemporary pong utilizing abstract classes
